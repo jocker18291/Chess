@@ -6,6 +6,7 @@ private:
     char type;
     char color;
 public:
+    Piece(char type, char color);
     bool canMoveTo();
 }
 
