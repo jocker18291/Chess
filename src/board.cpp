@@ -54,6 +54,13 @@ bool Board::makeMove(const std::string& move) {
     if(piece == '.')
         return false;
 
+    bool isWhitePiece = isupper(piece);
+
+    if(isWhitePiece != whiteToMove) {
+        std::cout << "Cannot move opponent's piece!\n";
+        return false;
+    }
+
     board[toY][toX] = board[fromY][fromX];
     board[fromY][fromX] = '.';
     return true;
