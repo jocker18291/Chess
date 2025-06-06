@@ -7,14 +7,14 @@ Board::Board() {
 
 void Board::init() {
     std::string start[8] = {
-        "rnbqkbnr";
-        "pppppppp";
-        "........";
-        "........";
-        "........";
-        "........";
-        "PPPPPPPP";
-        "RNBQKBNR";
+        "rnbqkbnr",
+        "pppppppp",
+        "........",
+        "........",
+        "........",
+        "........",
+        "PPPPPPPP",
+        "RNBQKBNR"
     };
 
     for(int i = 0; i < 8; i++) {
