@@ -71,3 +71,7 @@ bool Board::makeMove(const std::string& move) {
 bool Board::isGameOver() const {
     return false;
 }
+
+bool Board::isWhiteToMove() const {
+    return whiteToMove;
+}
