@@ -47,4 +47,8 @@ bool Board::makeMove(const std::string& move) {
 
     if(fromX < 0 || fromX > 7 || fromY < 0 || fromY > 7 || toX < 0 || toX > 7 || toY < 0 || toY > 7)
         return false;
+
+    board[toY][toX] = board[fromY][fromX];
+    board[fromY][fromX] = '.';
+    return true;
 }
