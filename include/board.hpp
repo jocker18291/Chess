@@ -6,6 +6,7 @@
 class Board {
 private:
     char board[8][8];
+    bool whiteToMove;
 
 public:
     Board();
