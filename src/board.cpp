@@ -61,8 +61,35 @@ bool Board::makeMove(const std::string& move) {
         return false;
     }
 
-    board[toY][toX] = board[fromY][fromX];
-    board[fromY][fromX] = '.';
+    int dy = toY - fromY;
+    int dx = toX - fromX;
+
+    if(tolower(piece) == 'p') {
+        int direction = isWhitePiece ? -1 : 1;
+        int startRow = isWhitePiece ? 6 : 1;
+
+        if(dx == 0 && dy == direction && board[toY][toX] == '.') {
+            board[toY][toX] = board[fromY][fromX];
+            board[fromY][fromX] = '.';
+        }
+
+        else if(dx == 0 && dy == 2 * direction && fromY == startRow && board[fromY + direction][fromX] == '.' && board[toY][toX] == '.') {
+            board[toY][toX] = board[fromY][fromX];
+            board[fromY][fromX] = '.';
+        }
+
+        else if(abs(dx) == 1 && dy == direction && board[toY][toX] != '.' && isupper(board[toY][toX] != isWhitePiece)){
+            board[toY][toX] = board[fromY][fromX];
+            board[fromY][fromX] = '.';
+        }
+        
+        else {
+            std::cout << "Illegal move!\n";
+            return false;
+        }
+    }
+
+    
     
     whiteToMove = !whiteToMove;
     return true;
