@@ -35,3 +35,13 @@ void Board::print() const {
     }
     std::cout << "  a b c d e f g h\n";
 }
+
+bool Board::makeMove(const std::string& move) {
+    if(move.length() != 4)
+        return false;
+    
+    int fromY = 8 - (move[1] - '0');
+    int fromX = move[0] - 'a';
+    int toY = 8 - (move[3] - '0');
+    int toX = move[2] - 'a';
+}
