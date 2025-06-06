@@ -52,3 +52,7 @@ bool Board::makeMove(const std::string& move) {
     board[fromY][fromX] = '.';
     return true;
 }
+
+bool Board::isGameOver() const {
+    return false;
+}
