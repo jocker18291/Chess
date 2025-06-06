@@ -69,18 +69,15 @@ bool Board::makeMove(const std::string& move) {
         int startRow = isWhitePiece ? 6 : 1;
 
         if(dx == 0 && dy == direction && board[toY][toX] == '.') {
-            board[toY][toX] = board[fromY][fromX];
-            board[fromY][fromX] = '.';
+            
         }
 
         else if(dx == 0 && dy == 2 * direction && fromY == startRow && board[fromY + direction][fromX] == '.' && board[toY][toX] == '.') {
-            board[toY][toX] = board[fromY][fromX];
-            board[fromY][fromX] = '.';
+
         }
 
         else if(abs(dx) == 1 && dy == direction && board[toY][toX] != '.' && isupper(board[toY][toX]) != isWhitePiece){
-            board[toY][toX] = board[fromY][fromX];
-            board[fromY][fromX] = '.';
+
         }
         
         else {
@@ -104,7 +101,8 @@ bool Board::makeMove(const std::string& move) {
     }
 
     
-    
+    board[toY][toX] = board[fromY][fromX];
+    board[fromY][fromX] = '.';
     whiteToMove = !whiteToMove;
     return true;
 }
