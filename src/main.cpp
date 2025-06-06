@@ -5,13 +5,16 @@ int main() {
     Board board;
     board.print();
 
-    std::string move;
-    std::cout << "Move: ";
-    std::cin >> move;
-    if(!board.makeMove(move)) {
-        std::cout << "Illegal!\n";
+    while(!board.isGameOver()) {
+        std::string move;
+        std::cout << (board.isWhiteToMove() ? "White's move: " : "Black's move: ") << "\n";
+        std::cin >> move;
+        if(!board.makeMove(move)) {
+            std::cout << "Illegal!\n";
+        }
+        board.print();
     }
-    board.print();
-
+    
+    std::cout << "Game is over!\n";
     return 0;
 }
