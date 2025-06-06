@@ -63,6 +63,8 @@ bool Board::makeMove(const std::string& move) {
 
     board[toY][toX] = board[fromY][fromX];
     board[fromY][fromX] = '.';
+    
+    whiteToMove = !whiteToMove;
     return true;
 }
 
