@@ -78,7 +78,7 @@ bool Board::makeMove(const std::string& move) {
             board[fromY][fromX] = '.';
         }
 
-        else if(abs(dx) == 1 && dy == direction && board[toY][toX] != '.' && isupper(board[toY][toX] != isWhitePiece)){
+        else if(abs(dx) == 1 && dy == direction && board[toY][toX] != '.' && isupper(board[toY][toX]) != isWhitePiece){
             board[toY][toX] = board[fromY][fromX];
             board[fromY][fromX] = '.';
         }
