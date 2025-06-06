@@ -166,6 +166,21 @@ bool Board::makeMove(const std::string& move) {
         }
     }
 
+    else if(tolower(piece) == 'k') {
+        if(abs(dx) > 1 || abs(dy) > 1) {
+            return false;
+        }
+
+        int stepX = (dx == 0) ? 0 : (dx > 0 ? 1 : -1);
+        int stepY = (dy == 0) ? 0 : (dy > 0 ? 1 : -1);
+        int x = fromX + stepX;
+        int y = fromY + stepY;
+
+        if(board[y][x] != '.' && isupper(board[toY][toX]) == isWhitePiece) {
+            return false;
+        }
+    }
+
     else {
         return false;
     }
