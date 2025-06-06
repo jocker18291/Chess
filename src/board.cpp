@@ -22,6 +22,8 @@ void Board::init() {
             board[i][j] = start[i][j];
         }
     }
+
+    whiteToMove = true;
 }
 
 void Board::print() const {
