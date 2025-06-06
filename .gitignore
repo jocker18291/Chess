@@ -1,0 +1,14 @@
+*.o
+*.obj
+*.lo
+*.a
+*.lib
+*.so
+*.dll
+*.dylib
+*.exe
+*.out
+
+*.log
+
+.vscode/
