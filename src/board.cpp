@@ -26,7 +26,7 @@ void Board::init() {
 
 void Board::print() const {
     std::cout << "  a b c d e f g h\n";
-    for(int i = 0; i < 9; i++) {
+    for(int i = 0; i < 8; i++) {
         std::cout << 8 - i << ' ';
         for(int j = 0; j < 8; j++) {
             std::cout << board[i][j] << ' ';
