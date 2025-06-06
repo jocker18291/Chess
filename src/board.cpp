@@ -143,6 +143,29 @@ bool Board::makeMove(const std::string& move) {
         }
     }
 
+    else if(tolower(piece) == 'q') {
+        if(!(dx == 0 || dy == 0 || abs(dx) != abs(dy))) {
+            return false;
+        }
+
+        int stepX = (dx == 0) ? 0 : (dx > 0 ? 1 : -1);
+        int stepY = (dy == 0) ? 0 : (dy > 0 ? 1 : -1);
+        int x = fromX + stepX;
+        int y = fromY + stepY;
+
+        while(x != toX || y != toY) {
+            if(board[y][x] != '.') {
+                return false;
+            }
+            x += stepX;
+            y += stepY;
+        }
+
+        if(board[toY][toX] != '.' && isupper(board[toY][toX] == isWhitePiece)) {
+            return false;
+        }
+    }
+
     else {
         return false;
     }
