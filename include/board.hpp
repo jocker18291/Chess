@@ -13,6 +13,6 @@ public:
     void print() const;
     bool makeMove(const std::string& move);
     bool isGameOver() const;
-}
+};
 
 #endif
