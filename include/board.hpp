@@ -1,6 +1,8 @@
 #ifndef BOARD_HPP
 #define BOARD_HPP
 
+#include <string>
+
 class Board {
 private:
     char board[8][8];
