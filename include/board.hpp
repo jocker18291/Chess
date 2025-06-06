@@ -4,6 +4,13 @@
 class Board {
 private:
     char board[8][8];
+
+public:
+    Board();
+    void init();
+    void print() const;
+    bool makeMove(const std::string& move);
+    bool isGameOver() const;
 }
 
 #endif
