@@ -7,7 +7,7 @@ int main() {
 
     while(!board.isGameOver()) {
         std::string move;
-        std::cout << (board.isWhiteToMove() ? "White's move: " : "Black's move: ") << "\n";
+        std::cout << (board.isWhiteToMove() ? "White's move: " : "Black's move: ");
         std::cin >> move;
         if(!board.makeMove(move)) {
             std::cout << "Illegal!\n";
