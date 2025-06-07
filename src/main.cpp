@@ -7,12 +7,28 @@ int main() {
 
     while(!board.isGameOver()) {
         std::string move;
-        std::cout << (board.isWhiteToMove() ? "White's move: " : "Black's move: ");
-        std::cin >> move;
-        if(!board.makeMove(move)) {
-            std::cout << "Illegal!\n";
+        if(board.isWhiteToMove()) {
+            std::cout << "White's turn: ";
+            std::cin >> move;
+            if(!board.makeMove(move)) {
+                std::cout << "Illegal!\n";
+            }
+            board.print();
+        } else {
+            std::vector<Move> aiMoves = board.getAllLegalMoves(false);
+            if(!aiMoves.empty()) {
+                std::random_device rd;
+                std::mt19937 gen(rd());
+                std::uniform_int_distribution<> dis(0, aiMoves.size() - 1);
+
+                Move aiMove = aiMoves[dis(gen)];
+                board.makeMove(aiMove);
+                board.print();
+            } else {
+                std::cout << "No legal moves left!";
+                break;
+            }
         }
-        board.print();
     }
     
     std::cout << "Game is over!\n";
