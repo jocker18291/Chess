@@ -248,3 +248,7 @@ int Board::evaluate() const {
     }
     return score;
 }
+
+char Board::getPiece(int y, int x) const {
+    return board[y][x];
+}
