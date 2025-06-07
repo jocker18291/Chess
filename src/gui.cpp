@@ -34,6 +34,30 @@ int main() {
         while (window.pollEvent(event)) {
             if(event.type == sf::Event::Closed)
                 window.close();
+
+            if(event.type == sf::Event::MouseButtonPressed) {
+                auto [x, y] = getTileFromMouse(event.mouseButton.x, event.mouseButton.y);
+                if(selected.x == -1) {
+                    selected = {x, y};
+                } else {
+                    std::string move;
+                    move += ('a' + selected.x);
+                    move += ('8' - selected.y);
+                    move += ('a' + x);
+                    move += ('8' - y);
+
+                    if(board.makeMove(move)) {
+                        std::cout << "Move: " << move << std::endl;
+
+                        if(!board.isWhiteToMove()) {
+                            Move aiMove = findBestMove(board, 3);
+                            board.makeMove(aiMove);
+                        }
+                    }
+
+                    selected = {-1, 1};
+                }
+            }
         }
     }
 }
