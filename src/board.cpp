@@ -118,7 +118,7 @@ bool Board::makeMove(const std::string& move) {
     }
 
      else if(tolower(piece) == 'b') {
-        if(!(abs(dx) != abs(dy))) {
+        if(abs(dx) != abs(dy)) {
             return false;
         }
 
