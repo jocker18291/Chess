@@ -24,6 +24,7 @@ public:
     bool isWhiteToMove() const;
     std::vector<Move> getAllLegalMoves(bool white);
     bool makeMove(const Move& move);
+    int evaluate() const;
 };
 
 #endif
