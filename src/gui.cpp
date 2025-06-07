@@ -18,4 +18,14 @@ int main() {
         {'P', "w_piece"}, {'R', "rw_piece"}, {'N', "nw_piece"}, {'B', "bw_piece"}, {'Q', "qw_piece"}, {'K', "kw_piece"},
         {'p', "piece"}, {'r', "r_piece"}, {'n', "n_piece"}, {'b', "b_piece"}, {'q', "q_piece"}, {'k', "k_piece"}
     };
+
+    for(auto& [symbol, name] : figureMap) {
+        sf::Texture tex;
+        if (!tex.loadFromFile("res/" + name + ".png")) {
+            std::cerr << "Lack of texture: " << name << ".png\n";
+        }
+        textures[name] = tex;
+    }
+
+    sf::Vector2i selected = {-1, 1};
 }
