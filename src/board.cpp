@@ -81,18 +81,15 @@ bool Board::makeMove(const std::string& move) {
         }
         
         else {
-            std::cout << "Illegal move!\n";
             return false;
         }
     }
 
     else if (tolower(piece) == 'n') {
         if(!((abs(dx) == 2 && abs(dy) == 1) || (abs(dx) == 1 && abs(dy) == 2))) {
-            std::cout << "Illegal move!\n";
             return false;
         }
         if(board[toY][toX] != '.' && isupper(board[toY][toX]) == isWhitePiece) {
-            std::cout << "Illegal move!\n";
             return false;
         }
     }
