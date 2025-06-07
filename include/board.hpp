@@ -5,14 +5,15 @@
 #include <vector>
 #include <random>
 
+struct Move {
+        int fromX, fromY;
+        int toX, toY;
+    };
+
 class Board {
 private:
     char board[8][8];
     bool whiteToMove;
-    struct Move {
-        int fromX, fromY;
-        int toX, toY;
-    };
 
 public:
     Board();
