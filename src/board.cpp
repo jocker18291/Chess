@@ -194,3 +194,12 @@ bool Board::isGameOver() const {
 bool Board::isWhiteToMove() const {
     return whiteToMove;
 }
+
+bool Board::makeMove(const Move& move) {
+    std::string moveStr;
+    moveStr += ('a' + move.fromX);
+    moveStr += ('8' - move.fromY);
+    moveStr += ('a' + move.toX);
+    moveStr += ('8' - move.toY);
+    return makeMove(moveStr);
+}
