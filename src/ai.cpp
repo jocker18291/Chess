@@ -1,6 +1,6 @@
 #include "../include/ai.hpp"
 
-int minimax(Board board, int depth, bool maximizingPlayer) {
+int minimax(Board board, int depth, bool maximizingPlayer, int alpha, int beta) {
     if(depth == 0 || board.isGameOver()) {
         return board.evaluate();
     }
@@ -16,8 +16,12 @@ int minimax(Board board, int depth, bool maximizingPlayer) {
         for(const Move& move : moves) {
             Board newBoard = board;
             newBoard.makeMove(move);
-            int score = minimax(newBoard, depth - 1, false);
+            int score = minimax(newBoard, depth - 1, false, alpha, beta);
             best = std::max(best, score);
+            alpha = std::max(alpha, best);
+            if(beta <= alpha) {
+                break;
+            }
         }
         return best;
     } else {
@@ -25,8 +29,12 @@ int minimax(Board board, int depth, bool maximizingPlayer) {
         for (const Move& move : moves) {
             Board newBoard = board;
             newBoard.makeMove(move);
-            int score = minimax(newBoard, depth - 1, true);
+            int score = minimax(newBoard, depth - 1, true, alpha, beta);
             best = std::min(best, score);
+            beta = std::min(beta, best);
+            if(beta <= alpha) {
+                break;
+            }
         }
         return best;
     }
@@ -40,7 +48,7 @@ Move findBestMove(Board board, int depth) {
     for(const Move& move : moves) {
         Board newBoard = board;
         newBoard.makeMove(move);
-        int score = minimax(newBoard, depth - 1, true);
+        int score = minimax(newBoard, depth - 1, true, -100000, 100000);
 
         if(score > bestScore) {
             bestScore = score;
