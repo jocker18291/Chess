@@ -13,8 +13,8 @@ int main() {
             if(!board.makeMove(move)) {
                 std::cout << "Illegal!\n";
             }
-            std::cout << std::endl;
             board.print();
+            std::cout << std::endl;
         } else {
             std::vector<Move> aiMoves = board.getAllLegalMoves(false);
             if(!aiMoves.empty()) {
