@@ -17,20 +17,9 @@ int main() {
             board.print();
             std::cout << std::endl;
         } else {
-            std::vector<Move> aiMoves = board.getAllLegalMoves(false);
-            if(!aiMoves.empty()) {
-                std::random_device rd;
-                std::mt19937 gen(rd());
-                std::uniform_int_distribution<> dis(0, aiMoves.size() - 1);
-
-                Move aiMove = aiMoves[dis(gen)];
-                board.makeMove(aiMove);
-                board.print();
-                std::cout << std::endl;
-            } else {
-                std::cout << "No legal moves left!";
-                break;
-            }
+            Move move = findBestMove(board, 18);
+            board.makeMove(move);
+            board.print();
         }
     }
     
