@@ -230,3 +230,21 @@ std::vector<Move> Board::getAllLegalMoves(bool white) {
 
     return moves;
 }
+
+int Board::evaluate() const {
+    int score = 0;
+    for(int y = 0; y < 8; y++) {
+        for(int x = 0; x < 8; x++) {
+            char p = board[y][x];
+            switch(tolower(p)) {
+                case 'p': score += (isupper(p) ? 10 : -10); break;
+                case 'n': score += (isupper(p) ? 30 : -30); break;
+                case 'b': score += (isupper(p) ? 30 : -30); break;
+                case 'r': score += (isupper(p) ? 50 : -50); break;
+                case 'q': score += (isupper(p) ? 90 : -90); break;
+                case 'k': score += (isupper(p) ? 900 : -900); break;
+            }
+        }
+    }
+    return score;
+}
