@@ -25,6 +25,7 @@ public:
     std::vector<Move> getAllLegalMoves(bool white);
     bool makeMove(const Move& move);
     int evaluate() const;
+    char getPiece(int y, int x) const;
 };
 
 #endif
