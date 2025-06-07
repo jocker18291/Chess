@@ -41,7 +41,11 @@ int minimax(Board board, int depth, bool maximizingPlayer, int alpha, int beta) 
 }
 
 Move findBestMove(Board board, int depth) {
-    std::vector<Move> moves = board.getAllLegalMoves(false);
+    std::vector<Move> moves = board.getAllLegalMoves(board.isWhiteToMove());
+    if(moves.empty()) {
+        return Move{-1, -1, -1, -1};
+    }
+    
     Move bestMove = moves[0];
     int bestScore = -100000;
 
