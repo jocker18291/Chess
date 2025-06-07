@@ -127,7 +127,7 @@ bool Board::makeMove(const std::string& move) {
         int x = fromX + stepX;
         int y = fromY + stepY;
 
-        while(x != toX && y != toY) {
+        while(x != toX || y != toY) {
             if(board[y][x] != '.') {
                 return false;
             }
