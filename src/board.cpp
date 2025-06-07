@@ -135,7 +135,7 @@ bool Board::makeMove(const std::string& move) {
             y += stepY;
         }
 
-        if(board[toY][toX] != '.' && isupper(board[toY][toX] == isWhitePiece)) {
+        if(board[toY][toX] != '.' && isupper(board[toY][toX]) == isWhitePiece) {
             return false;
         }
     }
