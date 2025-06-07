@@ -141,7 +141,7 @@ bool Board::makeMove(const std::string& move) {
     }
 
     else if(tolower(piece) == 'q') {
-        if(!(dx == 0 || dy == 0 || abs(dx) != abs(dy))) {
+        if(!((dx == 0 && abs(dy) != 0) || (abs(dx) != 0 && dy == 0) || (abs(dy) == abs(dx)))) {
             return false;
         }
 
