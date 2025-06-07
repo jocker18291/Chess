@@ -203,3 +203,33 @@ bool Board::makeMove(const Move& move) {
     moveStr += ('8' - move.toY);
     return makeMove(moveStr);
 }
+
+std::vector<Move> Board::getAllLegalMoves(bool white) {
+    std::vector<Move> moves;
+
+    for(int y = 0; y < 8; y++) {
+        for(int x = 0; x < 8; x++) {
+            char piece = board[y][x];
+            if(piece == '.' || isupper(piece) != white) {
+                continue;
+            }
+
+            for(int ty = 0; ty < 8; ty++) {
+                for(int tx = 0; tx < 8; tx++) {
+                    std::string testMove;
+                    testMove += ('a' + x);
+                    testMove += ('8' - y);
+                    testMove += ('a' + tx);
+                    testMove += ('8' - ty);
+
+                    Board test = *this;
+                    if(test.makeMove(testMove)) {
+                        moves.push_back({x, y, tx, ty});
+                    }
+                }
+            }
+        }
+    }
+
+    return moves;
+}
