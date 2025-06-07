@@ -31,3 +31,21 @@ int minimax(Board board, int depth, bool maximizingPlayer) {
         return best;
     }
 }
+
+Move findBestMove(Board board, int depth) {
+    std::vector<Move> moves = board.getAllLegalMoves(false);
+    Move bestMove = moves[0];
+    int bestScore = -100000;
+
+    for(const Move& move : moves) {
+        Board newBoard = board;
+        newBoard.makeMove(move);
+        int score = minimax(newBoard, depth - 1, true);
+
+        if(score > bestScore) {
+            bestScore = score;
+            bestMove = move;
+        }
+    }
+    return bestMove;
+}
