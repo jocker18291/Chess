@@ -47,14 +47,19 @@ Move findBestMove(Board board, int depth) {
     }
     
     Move bestMove = moves[0];
-    int bestScore = -100000;
+    int bestScore = board.isWhiteToMove() ? -100000 : 100000;
 
     for(const Move& move : moves) {
         Board newBoard = board;
         newBoard.makeMove(move);
-        int score = minimax(newBoard, depth - 1, true, -100000, 100000);
+        int score = minimax(newBoard, depth - 1, !board.isWhiteToMove(), -100000, 100000);
 
-        if(score > bestScore) {
+        if(board.isWhiteToMove() && score > bestScore) {
+            bestScore = score;
+            bestMove = move;
+        }
+
+        else if(!board.isWhiteToMove() && score < bestScore) {
             bestScore = score;
             bestMove = move;
         }
