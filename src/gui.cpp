@@ -27,7 +27,7 @@ int main() {
         textures[name] = tex;
     }
 
-    sf::Vector2i selected = {-1, 1};
+    sf::Vector2i selected = {-1, -1};
 
     while (window.isOpen()) {
         sf::Event event;
@@ -55,9 +55,22 @@ int main() {
                         }
                     }
 
-                    selected = {-1, 1};
+                    selected = {-1, -1};
                 }
             }
         }
+
+        window.clear();
+        for(int i = 0; i < 8; i++) {
+            for(int j = 0; j < 8; j++) {
+                sf::RectangleShape tile(sf::Vector2f(TILE_SIZE, TILE_SIZE));
+                tile.setPosition(i * TILE_SIZE, j * TILE_SIZE);
+                tile.setFillColor((i + j) % 2 ? sf::Color(240, 217, 181) : sf::Color(181,136, 99));
+                window.draw(tile);
+            }
+        }
+        window.display();
     }
+
+    return 0;
 }
