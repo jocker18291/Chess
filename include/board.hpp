@@ -2,11 +2,17 @@
 #define BOARD_HPP
 
 #include <string>
+#include <vector>
+#include <random>
 
 class Board {
 private:
     char board[8][8];
     bool whiteToMove;
+    struct Move {
+        int fromX, fromY;
+        int toX, toY;
+    };
 
 public:
     Board();
@@ -15,6 +21,8 @@ public:
     bool makeMove(const std::string& move);
     bool isGameOver() const;
     bool isWhiteToMove() const;
+    std::vector<Move> getAllLegalMoves(bool white);
+    bool makeMove(const Move& move);
 };
 
 #endif
