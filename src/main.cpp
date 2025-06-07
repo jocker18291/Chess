@@ -1,5 +1,6 @@
 #include <iostream>
 #include "../include/board.hpp"
+#include "../include/ai.hpp"
 
 int main() {
     Board board;
