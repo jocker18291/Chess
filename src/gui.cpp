@@ -67,6 +67,13 @@ int main() {
                 tile.setPosition(i * TILE_SIZE, j * TILE_SIZE);
                 tile.setFillColor((i + j) % 2 ? sf::Color(240, 217, 181) : sf::Color(181,136, 99));
                 window.draw(tile);
+
+                char piece = board.getPiece(j, i);
+                if (piece != '.' && figureMap.count(piece)) {
+                    sf::Sprite sprite(textures[figureMap[piece]]);
+                    sprite.setPosition(i * TILE_SIZE, j * TILE_SIZE);
+                    window.draw(sprite);
+                }
             }
         }
         window.display();
