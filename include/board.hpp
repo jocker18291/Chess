@@ -28,6 +28,7 @@ public:
     char getPiece(int y, int x) const;
     bool isSquareAttacked(int x, int y, bool byWhite) const;
     bool isKingInCheck(bool white) const;
+    std::string getGameState() const;
 };
 
 #endif
