@@ -22,12 +22,12 @@ public:
     bool makeMove(const std::string& move);
     bool isGameOver() const;
     bool isWhiteToMove() const;
-    std::vector<Move> getAllLegalMoves(bool white);
+    std::vector<Move> getAllLegalMoves(bool white) const;
     bool makeMove2(const Move& move);
     int evaluate() const;
     char getPiece(int y, int x) const;
-    bool isSquareAttacked(int x, int y, bool byWhite);
-    bool isKingInCheck(bool white);
+    bool isSquareAttacked(int x, int y, bool byWhite) const;
+    bool isKingInCheck(bool white) const;
 };
 
 #endif
