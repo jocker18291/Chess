@@ -18,7 +18,7 @@ int main() {
             std::cout << std::endl;
         } else {
             Move move = findBestMove(board, 18);
-            board.makeMove(move);
+            board.makeMove2(move);
             board.print();
         }
     }
