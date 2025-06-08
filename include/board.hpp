@@ -27,6 +27,7 @@ public:
     int evaluate() const;
     char getPiece(int y, int x) const;
     bool isSquareAttacked(int x, int y, bool byWhite);
+    bool isKingInCheck(bool white);
 };
 
 #endif
