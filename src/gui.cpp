@@ -51,7 +51,7 @@ int main() {
 
                         if(!board.isWhiteToMove()) {
                             Move aiMove = findBestMove(board, 3);
-                            board.makeMove(aiMove);
+                            board.makeMove2(aiMove);
                         }
                     }
 

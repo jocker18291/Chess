@@ -15,7 +15,7 @@ int minimax(Board board, int depth, bool maximizingPlayer, int alpha, int beta) 
         int best = -100000;
         for(const Move& move : moves) {
             Board newBoard = board;
-            newBoard.makeMove(move);
+            newBoard.makeMove2(move);
             int score = minimax(newBoard, depth - 1, false, alpha, beta);
             best = std::max(best, score);
             alpha = std::max(alpha, best);
@@ -28,7 +28,7 @@ int minimax(Board board, int depth, bool maximizingPlayer, int alpha, int beta) 
         int best = 1000000;
         for (const Move& move : moves) {
             Board newBoard = board;
-            newBoard.makeMove(move);
+            newBoard.makeMove2(move);
             int score = minimax(newBoard, depth - 1, true, alpha, beta);
             best = std::min(best, score);
             beta = std::min(beta, best);
@@ -51,7 +51,7 @@ Move findBestMove(Board board, int depth) {
 
     for(const Move& move : moves) {
         Board newBoard = board;
-        newBoard.makeMove(move);
+        newBoard.makeMove2(move);
         int score = minimax(newBoard, depth - 1, !board.isWhiteToMove(), -100000, 100000);
 
         if(board.isWhiteToMove() && score > bestScore) {
