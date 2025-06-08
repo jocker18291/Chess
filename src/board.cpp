@@ -244,3 +244,24 @@ int Board::evaluate() const {
 char Board::getPiece(int y, int x) const {
     return board[y][x];
 }
+
+bool Board::isSquareAttacked(int x, int y, bool byWhite) {
+    for(int j = 0; j < 8; j++) {
+        for(int i = 0; i < 8; i++) {
+            char p = board[j][i];
+            if(p == '.' || (bool)isupper(p) != byWhite)
+                continue;
+            
+                std::string testMove;
+                testMove += ('a' + i);
+                testMove += ('8' - j);
+                testMove += ('a' + x);
+                testMove += ('8' - y);
+
+                Board copy = *this;
+                if(copy.makeMove(testMove))
+                    return true;
+        }
+    }
+    return false;
+}
