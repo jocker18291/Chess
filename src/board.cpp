@@ -64,124 +64,111 @@ bool Board::makeMove(const std::string& move) {
     int dy = toY - fromY;
     int dx = toX - fromX;
 
+    bool validMove = false;
+
     if(tolower(piece) == 'p') {
         int direction = isWhitePiece ? -1 : 1;
         int startRow = isWhitePiece ? 6 : 1;
 
         if(dx == 0 && dy == direction && board[toY][toX] == '.') {
-            
+            validMove = true;
         }
-
         else if(dx == 0 && dy == 2 * direction && fromY == startRow && board[fromY + direction][fromX] == '.' && board[toY][toX] == '.') {
-
+            validMove = true;
         }
-
         else if(abs(dx) == 1 && dy == direction && board[toY][toX] != '.' && isupper(board[toY][toX]) != isWhitePiece){
-
-        }
-        
-        else {
-            return false;
+            validMove = true;
         }
     }
-
     else if (tolower(piece) == 'n') {
-        if(!((abs(dx) == 2 && abs(dy) == 1) || (abs(dx) == 1 && abs(dy) == 2))) {
-            return false;
-        }
-        if(board[toY][toX] != '.' && isupper(board[toY][toX]) == isWhitePiece) {
-            return false;
+        if((abs(dx) == 2 && abs(dy) == 1) || (abs(dx) == 1 && abs(dy) == 2)) {
+            if(board[toY][toX] == '.' || isupper(board[toY][toX]) != isWhitePiece) {
+                validMove = true;
+            }
         }
     }
-
     else if(tolower(piece) == 'r') {
-        if(!(dx == 0 || dy == 0)) {
-            return false;
-        }
+        if(dx == 0 || dy == 0) {
+            int stepX = (dx == 0) ? 0 : (dx > 0 ? 1 : -1);
+            int stepY = (dy == 0) ? 0 : (dy > 0 ? 1 : -1);
+            int x = fromX + stepX;
+            int y = fromY + stepY;
 
-        int stepX = (dx == 0) ? 0 : (dx > 0 ? 1 : -1);
-        int stepY = (dy == 0) ? 0 : (dy > 0 ? 1 : -1);
-        int x = fromX + stepX;
-        int y = fromY + stepY;
-
-        while(x != toX || y != toY) {
-            if(board[y][x] != '.') {
-                return false;
+            bool pathClear = true;
+            while(x != toX || y != toY) {
+                if(board[y][x] != '.') {
+                    pathClear = false;
+                    break;
+                }
+                x += stepX;
+                y += stepY;
             }
-            x += stepX;
-            y += stepY;
-        }
 
-        if(board[toY][toX] != '.' && isupper(board[toY][toX]) == isWhitePiece) {
-            return false;
+            if(pathClear && (board[toY][toX] == '.' || isupper(board[toY][toX]) != isWhitePiece)) {
+                validMove = true;
+            }
         }
     }
+    else if(tolower(piece) == 'b') {
+        if(abs(dx) == abs(dy)) {
+            int stepX = (dx > 0) ? 1 : -1;
+            int stepY = (dy > 0) ? 1 : -1;
+            int x = fromX + stepX;
+            int y = fromY + stepY;
 
-     else if(tolower(piece) == 'b') {
-        if(abs(dx) != abs(dy)) {
-            return false;
-        }
-
-        int stepX = (dx > 0) ? 1 : -1;
-        int stepY = (dy > 0) ? 1 : -1;
-        int x = fromX + stepX;
-        int y = fromY + stepY;
-
-        while(x != toX || y != toY) {
-            if(board[y][x] != '.') {
-                return false;
+            bool pathClear = true;
+            while(x != toX || y != toY) {
+                if(board[y][x] != '.') {
+                    pathClear = false;
+                    break;
+                }
+                x += stepX;
+                y += stepY;
             }
-            x += stepX;
-            y += stepY;
-        }
 
-        if(board[toY][toX] != '.' && isupper(board[toY][toX]) == isWhitePiece) {
-            return false;
+            if(pathClear && (board[toY][toX] == '.' || isupper(board[toY][toX]) != isWhitePiece)) {
+                validMove = true;
+            }
         }
     }
-
     else if(tolower(piece) == 'q') {
-        if(!((dx == 0 && abs(dy) != 0) || (abs(dx) != 0 && dy == 0) || (abs(dy) == abs(dx)))) {
-            return false;
-        }
+        if((dx == 0 && abs(dy) != 0) || (abs(dx) != 0 && dy == 0) || (abs(dy) == abs(dx))) {
+            int stepX = (dx == 0) ? 0 : (dx > 0 ? 1 : -1);
+            int stepY = (dy == 0) ? 0 : (dy > 0 ? 1 : -1);
+            int x = fromX + stepX;
+            int y = fromY + stepY;
 
-        int stepX = (dx == 0) ? 0 : (dx > 0 ? 1 : -1);
-        int stepY = (dy == 0) ? 0 : (dy > 0 ? 1 : -1);
-        int x = fromX + stepX;
-        int y = fromY + stepY;
-
-        while(x != toX || y != toY) {
-            if(board[y][x] != '.') {
-                return false;
+            bool pathClear = true;
+            while(x != toX || y != toY) {
+                if(board[y][x] != '.') {
+                    pathClear = false;
+                    break;
+                }
+                x += stepX;
+                y += stepY;
             }
-            x += stepX;
-            y += stepY;
-        }
 
-        if(board[toY][toX] != '.' && isupper(board[toY][toX]) == isWhitePiece) {
-            return false;
+            if(pathClear && (board[toY][toX] == '.' || isupper(board[toY][toX]) != isWhitePiece)) {
+                validMove = true;
+            }
         }
     }
-
     else if(tolower(piece) == 'k') {
-        if(abs(dx) > 1 || abs(dy) > 1) {
-            return false;
-        }
-
-        if(board[toY][toX] != '.' && isupper(board[toY][toX]) == isWhitePiece) {
-            return false;
+        if(abs(dx) <= 1 && abs(dy) <= 1) {
+            if(board[toY][toX] == '.' || isupper(board[toY][toX]) != isWhitePiece) {
+                validMove = true;
+            }
         }
     }
 
-    else {
-        return false;
+    if(validMove) {
+        board[toY][toX] = board[fromY][fromX];
+        board[fromY][fromX] = '.';
+        whiteToMove = !whiteToMove;
+        return true;
     }
 
-    
-    board[toY][toX] = board[fromY][fromX];
-    board[fromY][fromX] = '.';
-    whiteToMove = !whiteToMove;
-    return true;
+    return false;
 }
 
 bool Board::isGameOver() const {
