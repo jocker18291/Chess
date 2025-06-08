@@ -76,7 +76,7 @@ bool Board::makeMove(const std::string& move) {
         else if(dx == 0 && dy == 2 * direction && fromY == startRow && board[fromY + direction][fromX] == '.' && board[toY][toX] == '.') {
             validMove = true;
         }
-        else if(abs(dx) == 1 && dy == direction && board[toY][toX] != '.' && isupper(board[toY][toX]) != isWhitePiece){
+        else if(abs(dx) == 1 && dy == direction && board[toY][toX] != '.' && (bool)isupper(board[toY][toX]) != isWhitePiece){
             validMove = true;
         }
     }
@@ -104,7 +104,7 @@ bool Board::makeMove(const std::string& move) {
                 y += stepY;
             }
 
-            if(pathClear && (board[toY][toX] == '.' || isupper(board[toY][toX]) != isWhitePiece)) {
+            if(pathClear && (board[toY][toX] == '.' || (bool)isupper(board[toY][toX]) != isWhitePiece)) {
                 validMove = true;
             }
         }
@@ -126,7 +126,7 @@ bool Board::makeMove(const std::string& move) {
                 y += stepY;
             }
 
-            if(pathClear && (board[toY][toX] == '.' || isupper(board[toY][toX]) != isWhitePiece)) {
+            if(pathClear && (board[toY][toX] == '.' || (bool)isupper(board[toY][toX]) != isWhitePiece)) {
                 validMove = true;
             }
         }
@@ -148,14 +148,14 @@ bool Board::makeMove(const std::string& move) {
                 y += stepY;
             }
 
-            if(pathClear && (board[toY][toX] == '.' || isupper(board[toY][toX]) != isWhitePiece)) {
+            if(pathClear && (board[toY][toX] == '.' || (bool)isupper(board[toY][toX]) != isWhitePiece)) {
                 validMove = true;
             }
         }
     }
     else if(tolower(piece) == 'k') {
         if(abs(dx) <= 1 && abs(dy) <= 1) {
-            if(board[toY][toX] == '.' || isupper(board[toY][toX]) != isWhitePiece) {
+            if(board[toY][toX] == '.' || (bool)isupper(board[toY][toX]) != isWhitePiece) {
                 validMove = true;
             }
         }
