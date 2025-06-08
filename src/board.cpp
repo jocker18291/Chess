@@ -265,3 +265,15 @@ bool Board::isSquareAttacked(int x, int y, bool byWhite) {
     }
     return false;
 }
+
+bool Board::isKingInCheck(bool white) {
+    for(int y = 0; y < 8; y++) {
+        for(int x = 0; x < 8; x++) {
+            char p = board[y][x];
+            if(p == (white ? 'K' : 'k')) {
+                return isSquareAttacked(x, y, !white);
+            }
+        }
+    }
+    return false;
+}
