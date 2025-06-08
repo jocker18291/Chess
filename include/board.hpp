@@ -23,7 +23,7 @@ public:
     bool isGameOver() const;
     bool isWhiteToMove() const;
     std::vector<Move> getAllLegalMoves(bool white) const;
-    bool makeMove2(const Move& move);
+    bool makeMove(const Move& move);
     int evaluate() const;
     char getPiece(int y, int x) const;
     bool isSquareAttacked(int x, int y, bool byWhite) const;

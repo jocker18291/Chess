@@ -64,8 +64,14 @@ int main() {
                         std::cout << "Move: " << move << std::endl;
 
                         if(!board.isWhiteToMove()) {
-                            Move aiMove = findBestMove(board, 3);
-                            board.makeMove2(aiMove);
+                            Move aiMove = findBestMove(board, 18);
+                            std::string aiMoveStr;
+                            aiMoveStr += ('a' + aiMove.fromX);
+                            aiMoveStr += ('8' - aiMove.fromY);
+                            aiMoveStr += ('a' + aiMove.toX);
+                            aiMoveStr += ('8' - aiMove.toY);
+                            board.makeMove(aiMove);
+                            std::cout << "AI Move: " << aiMoveStr << std::endl;
                         }
                         if(board.isGameOver()) {
                             gameOver = true;

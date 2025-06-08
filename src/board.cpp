@@ -203,7 +203,7 @@ bool Board::isWhiteToMove() const {
     return whiteToMove;
 }
 
-bool Board::makeMove2(const Move& move) {
+bool Board::makeMove(const Move& move) {
     std::string moveStr;
     moveStr += ('a' + move.fromX);
     moveStr += ('8' - move.fromY);
