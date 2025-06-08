@@ -279,3 +279,10 @@ bool Board::isKingInCheck(bool white) const {
     }
     return false;
 }
+
+std::string Board::getGameState() const {
+    std::vector<Move> legal = getAllLegalMoves(whiteToMove);
+    if(!legal.empty()) return "Game is on";
+    if(isKingInCheck(whiteToMove)) return whiteToMove ? "Black wins!" : "White wins!";
+    return "Draw";
+}
