@@ -27,6 +27,19 @@ int main() {
         textures[name] = tex;
     }
 
+    bool gameOver = false;
+    sf::Font font;
+    sf::Text resultText;
+    if(!font.loadFromFile("res/arial.ttf")) {
+        std::cerr << "Lack of font\n";
+    }
+
+    resultText.setFont(font);
+    resultText.setCharacterSize(36);
+    resultText.setFillColor(sf::Color::Red);
+    resultText.setStyle(sf::Text::Bold);
+    resultText.setPosition(50, 8 * TILE_SIZE /2 - 30);
+
     sf::Vector2i selected = {-1, -1};
 
     while (window.isOpen()) {
@@ -37,6 +50,7 @@ int main() {
 
             if(event.type == sf::Event::MouseButtonPressed) {
                 auto [x, y] = getTileFromMouse(event.mouseButton.x, event.mouseButton.y);
+                if(gameOver) continue;
                 if(selected.x == -1) {
                     selected = {x, y};
                 } else {
@@ -52,6 +66,10 @@ int main() {
                         if(!board.isWhiteToMove()) {
                             Move aiMove = findBestMove(board, 3);
                             board.makeMove2(aiMove);
+                        }
+                        if(board.isGameOver()) {
+                            gameOver = true;
+                            resultText.setString(board.getGameState());
                         }
                     }
 
@@ -84,6 +102,9 @@ int main() {
                     window.draw(sprite);
                 }
             }
+        }
+        if(gameOver) {
+            window.draw(resultText);
         }
         window.display();
     }
