@@ -161,6 +161,8 @@ bool Board::makeMove(const std::string& move) {
     }
 
     if(validMove) {
+
+        char captured = board[toY][toX];
         if(tolower(piece) == 'p' && (toY ==0 || toY == 7)) {
             board[toY][toX] = isWhitePiece ? 'Q' : 'q';
         } else {
@@ -168,8 +170,23 @@ bool Board::makeMove(const std::string& move) {
         }
         
         board[fromY][fromX] = '.';
-        whiteToMove = !whiteToMove;
-        return true;
+
+        bool leavesKingInCheck = isKingInCheck(isWhitePiece);
+
+        board[fromY][fromX] = piece;
+        board[toY][toX] = captured;
+
+        if(!leavesKingInCheck) {
+            if(tolower(piece) == 'p' && (toY ==0 || toY == 7)) {
+                board[toY][toX] = isWhitePiece ? 'Q' : 'q';
+            } else {
+                board[toY][toX] = board[fromY][fromX];
+            }
+            board[fromY][fromX] = '.';
+            whiteToMove = !whiteToMove;
+            return true;
+        }
+        
     }
 
     return false;
