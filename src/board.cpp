@@ -57,7 +57,6 @@ bool Board::makeMove(const std::string& move) {
     bool isWhitePiece = isupper(piece);
 
     if(isWhitePiece != whiteToMove) {
-        std::cout << "Cannot move opponent's piece!\n";
         return false;
     }
 
