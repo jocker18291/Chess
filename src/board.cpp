@@ -177,7 +177,10 @@ bool Board::makeMove(const std::string& move) {
 }
 
 bool Board::isGameOver() const {
-    return false;
+    std::vector<Move> legal = getAllLegalMoves(whiteToMove);
+    if(!legal.empty()) return false;
+
+    return isKingInCheck(whiteToMove);
 }
 
 bool Board::isWhiteToMove() const {
@@ -193,7 +196,7 @@ bool Board::makeMove2(const Move& move) {
     return makeMove(moveStr);
 }
 
-std::vector<Move> Board::getAllLegalMoves(bool white) {
+std::vector<Move> Board::getAllLegalMoves(bool white) const {
     std::vector<Move> moves;
 
     for(int y = 0; y < 8; y++) {
@@ -245,7 +248,7 @@ char Board::getPiece(int y, int x) const {
     return board[y][x];
 }
 
-bool Board::isSquareAttacked(int x, int y, bool byWhite) {
+bool Board::isSquareAttacked(int x, int y, bool byWhite) const {
     for(int j = 0; j < 8; j++) {
         for(int i = 0; i < 8; i++) {
             char p = board[j][i];
@@ -266,7 +269,7 @@ bool Board::isSquareAttacked(int x, int y, bool byWhite) {
     return false;
 }
 
-bool Board::isKingInCheck(bool white) {
+bool Board::isKingInCheck(bool white) const {
     for(int y = 0; y < 8; y++) {
         for(int x = 0; x < 8; x++) {
             char p = board[y][x];
