@@ -71,7 +71,16 @@ int main() {
                 char piece = board.getPiece(j, i);
                 if (piece != '.' && figureMap.count(piece)) {
                     sf::Sprite sprite(textures[figureMap[piece]]);
-                    sprite.setPosition(i * TILE_SIZE, j * TILE_SIZE);
+                    sprite.setScale(
+                        TILE_SIZE / sprite.getTexture()->getSize().x,
+                        TILE_SIZE / sprite.getTexture()->getSize().y
+                    );
+
+                    sprite.setOrigin(
+                        sprite.getTexture()->getSize().x /2.f,
+                        sprite.getTexture()->getSize().y / 2.f
+                    );
+                    sprite.setPosition(i * TILE_SIZE + TILE_SIZE /2, j * TILE_SIZE + TILE_SIZE /2);
                     window.draw(sprite);
                 }
             }
