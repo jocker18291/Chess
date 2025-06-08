@@ -162,7 +162,12 @@ bool Board::makeMove(const std::string& move) {
     }
 
     if(validMove) {
-        board[toY][toX] = board[fromY][fromX];
+        if(tolower(piece) == 'p' && (toY ==0 || toY == 7)) {
+            board[toY][toX] = isWhitePiece ? 'Q' : 'q';
+        } else {
+            board[toY][toX] = board[fromY][fromX];
+        }
+        
         board[fromY][fromX] = '.';
         whiteToMove = !whiteToMove;
         return true;
@@ -179,7 +184,7 @@ bool Board::isWhiteToMove() const {
     return whiteToMove;
 }
 
-bool Board::makeMove(const Move& move) {
+bool Board::makeMove2(const Move& move) {
     std::string moveStr;
     moveStr += ('a' + move.fromX);
     moveStr += ('8' - move.fromY);
