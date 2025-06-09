@@ -323,3 +323,33 @@ bool Board::isPathClear(int fromX, int fromY, int toX, int toY) const {
     }
     return true;
 }
+
+bool Board::canAttackSquare(int fromX, int fromY, int toX, int toY, bool attackerIsWhite) const {
+    char piece = board[fromY][fromX];
+    if(piece == '.' || (bool)isupper(piece) != attackerIsWhite)
+        return false;
+    
+    int dx = toX - fromX;
+    int dy = toY - fromY;
+
+    switch(tolower(piece)) {
+        case 'p': {
+            int direction = attackerIsWhite ? -1 : 1;
+            return abs(dx) == 1 && dy == direction;
+        }
+        case 'n' :
+            return (abs(dx) == 2 && abs(dy) == 1) || (abs(dx) == 1 && abs(dy) == 2);
+        case 'b':
+            if(abs(dx) != abs(dy)) return false;
+            return isPathClear(fromX, fromY, toX, toY);
+        case 'r':
+            if(dx != 0 && dy != 0) return false;
+            return isPathClear(fromX, fromY, toX, toY);
+        case 'q':
+            if(dx != 0 && dy != 0 && abs(dx) != abs(dy)) return false;
+            return isPathClear(fromY, fromX, toY, toX);
+        case 'k':
+            return abs(dx) <= 1 && abs(dy) <= 1;
+    }
+    return false;
+}
