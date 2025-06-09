@@ -29,6 +29,8 @@ public:
     bool isSquareAttacked(int x, int y, bool byWhite) const;
     bool isKingInCheck(bool white) const;
     std::string getGameState() const;
+    bool canAttackSquare(int fromX, int fromY, int toX, int toY, bool attackerIsWhite) const;
+    bool isPathClear(int fromX, int fromY, int toX, int toY) const;
 };
 
 #endif
