@@ -257,6 +257,10 @@ int Board::evaluate() const {
             }
         }
     }
+
+    int mobility = getAllLegalMoves(isWhiteToMove()).size();
+    score += (isWhiteToMove() ? 1 : -1) * mobility;
+
     return score;
 }
 
@@ -302,4 +306,20 @@ std::string Board::getGameState() const {
     if(!legal.empty()) return "Game is on";
     if(isKingInCheck(whiteToMove)) return whiteToMove ? "Black wins!" : "White wins!";
     return "Draw";
+}
+
+bool Board::isPathClear(int fromX, int fromY, int toX, int toY) const {
+    int dx = (toX - fromX) ? (toX - fromX) / abs(toX - fromX) : 0;
+    int dy = (toY - fromY) ? (toY - fromY) / abs(toY - fromY) : 0;
+
+    int x = fromX + dx;
+    int y = fromY + dy;
+    while(x != toX || y!= toY) {
+        if(board[y][x] != '.') {
+            return false;
+        }
+        x += dx;
+        y += dy;
+    }
+    return true;
 }
