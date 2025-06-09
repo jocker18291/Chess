@@ -154,8 +154,7 @@ bool Board::makeMove(const std::string& move) {
     }
     else if(tolower(piece) == 'k') {
         if(abs(dx) <= 1 && abs(dy) <= 1) {
-            if(board[toY][toX] == '.' || (bool)isupper(board[toY][toX]) != isWhitePiece
-        && !isSquareAttacked(toX, toY, !isWhitePiece)) {
+            if((board[toY][toX] == '.' || (bool)isupper(board[toY][toX]) != isWhitePiece) && !isSquareAttacked(toX, toY, !isWhitePiece)) {
                 validMove = true;
             }
         }
@@ -177,16 +176,18 @@ bool Board::makeMove(const std::string& move) {
         board[fromY][fromX] = piece;
         board[toY][toX] = captured;
 
-        if(!leavesKingInCheck) {
-            if(tolower(piece) == 'p' && (toY ==0 || toY == 7)) {
-                board[toY][toX] = isWhitePiece ? 'Q' : 'q';
-            } else {
-                board[toY][toX] = board[fromY][fromX];
-            }
-            board[fromY][fromX] = '.';
-            whiteToMove = !whiteToMove;
-            return true;
+        if(leavesKingInCheck) {
+            return false;
         }
+
+        if(tolower(piece) == 'p' && (toY ==0 || toY == 7)) {
+            board[toY][toX] = isWhitePiece ? 'Q' : 'q';
+        } else {
+            board[toY][toX] = board[fromY][fromX];
+        }
+        board[fromY][fromX] = '.';
+        whiteToMove = !whiteToMove;
+        return true;
         
     }
 
@@ -249,7 +250,11 @@ int Board::evaluate() const {
         for(int x = 0; x < 8; x++) {
             char p = board[y][x];
             switch(tolower(p)) {
-                case 'p': score += (isupper(p) ? 10 : -10); break;
+                case 'p': score += (isupper(p) ? 10 : -10); 
+                    if((x == 3 || x == 4) && (y == 3 || y == 4)) {
+                        score += (isupper(p) ? 1 : -1) * 3;
+                    }
+                break;
                 case 'n': score += (isupper(p) ? 30 : -30); break;
                 case 'b': score += (isupper(p) ? 30 : -30); break;
                 case 'r': score += (isupper(p) ? 50 : -50); break;
@@ -275,6 +280,8 @@ bool Board::isSquareAttacked(int x, int y, bool byWhite) const {
             char p = board[j][i];
             if(p == '.' || (bool)isupper(p) != byWhite)
                 continue;
+
+            if(i == x && j == y) continue;
             
                 if(canAttackSquare(i, j, x, y, byWhite))
                     return true;
@@ -297,8 +304,8 @@ bool Board::isKingInCheck(bool white) const {
 
 std::string Board::getGameState() const {
     std::vector<Move> legal = getAllLegalMoves(whiteToMove);
-    if(!legal.empty()) return "Game is on";
-    if(isKingInCheck(whiteToMove)) return whiteToMove ? "Black wins!" : "White wins!";
+    if((isKingInCheck(whiteToMove) && !legal.empty()) || !legal.empty()) return "Game is on";
+    else if(isKingInCheck(whiteToMove) && legal.empty()) return whiteToMove ? "Black wins!" : "White wins!";
     return "Draw";
 }
 
