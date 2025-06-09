@@ -154,7 +154,8 @@ bool Board::makeMove(const std::string& move) {
     }
     else if(tolower(piece) == 'k') {
         if(abs(dx) <= 1 && abs(dy) <= 1) {
-            if(board[toY][toX] == '.' || (bool)isupper(board[toY][toX]) != isWhitePiece) {
+            if(board[toY][toX] == '.' || (bool)isupper(board[toY][toX]) != isWhitePiece
+        && !isSquareAttacked(toX, toY, !isWhitePiece)) {
                 validMove = true;
             }
         }
@@ -275,14 +276,7 @@ bool Board::isSquareAttacked(int x, int y, bool byWhite) const {
             if(p == '.' || (bool)isupper(p) != byWhite)
                 continue;
             
-                std::string testMove;
-                testMove += ('a' + i);
-                testMove += ('8' - j);
-                testMove += ('a' + x);
-                testMove += ('8' - y);
-
-                Board copy = *this;
-                if(copy.makeMove(testMove))
+                if(canAttackSquare(i, j, x, y, byWhite))
                     return true;
         }
     }
@@ -347,7 +341,7 @@ bool Board::canAttackSquare(int fromX, int fromY, int toX, int toY, bool attacke
             return isPathClear(fromX, fromY, toX, toY);
         case 'q':
             if(dx != 0 && dy != 0 && abs(dx) != abs(dy)) return false;
-            return isPathClear(fromY, fromX, toY, toX);
+            return isPathClear(fromX, fromY, toX, toY);
         case 'k':
             return abs(dx) <= 1 && abs(dy) <= 1;
     }
