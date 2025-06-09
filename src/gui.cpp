@@ -36,9 +36,9 @@ int main() {
 
     resultText.setFont(font);
     resultText.setCharacterSize(36);
-    resultText.setFillColor(sf::Color::Red);
+    resultText.setFillColor(sf::Color::Blue);
     resultText.setStyle(sf::Text::Bold);
-    resultText.setPosition(50, 8 * TILE_SIZE /2 - 30);
+    resultText.setPosition(8* TILE_SIZE / 2 - 100, 8 * TILE_SIZE /2 - 18);
 
     sf::Vector2i selected = {-1, -1};
 
