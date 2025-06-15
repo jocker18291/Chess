@@ -63,8 +63,13 @@ int main() {
                     if(board.makeMove(move)) {
                         std::cout << "Move: " << move << std::endl;
 
-                        if(!board.isWhiteToMove()) {
-                            Move aiMove = findBestMove(board, 18);
+                        if(board.isGameOver()) {
+                            gameOver = true;
+                            resultText.setString(board.getGameState());
+                        }
+
+                        else if(!board.isWhiteToMove()) {
+                            Move aiMove = findBestMove(board, 4);
                             std::string aiMoveStr;
                             aiMoveStr += ('a' + aiMove.fromX);
                             aiMoveStr += ('8' - aiMove.fromY);
@@ -72,10 +77,10 @@ int main() {
                             aiMoveStr += ('8' - aiMove.toY);
                             board.makeMove(aiMove);
                             std::cout << "AI Move: " << aiMoveStr << std::endl;
-                        }
-                        if(board.isGameOver()) {
-                            gameOver = true;
-                            resultText.setString(board.getGameState());
+                            if(board.isGameOver()) {
+                                gameOver = true;
+                                resultText.setString(board.getGameState());
+                            }
                         }
                     }
 
@@ -90,6 +95,12 @@ int main() {
                 sf::RectangleShape tile(sf::Vector2f(TILE_SIZE, TILE_SIZE));
                 tile.setPosition(i * TILE_SIZE, j * TILE_SIZE);
                 tile.setFillColor((i + j) % 2 ? sf::Color(240, 217, 181) : sf::Color(181,136, 99));
+
+                if(selected.x == i && selected.y == j) {
+                    tile.setOutlineThickness(3);
+                    tile.setOutlineColor(sf::Color::Yellow);
+                }
+
                 window.draw(tile);
 
                 char piece = board.getPiece(j, i);
