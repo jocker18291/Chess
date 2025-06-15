@@ -196,9 +196,7 @@ bool Board::makeMove(const std::string& move) {
 
 bool Board::isGameOver() const {
     std::vector<Move> legal = getAllLegalMoves(whiteToMove);
-    if(!legal.empty()) return false;
-
-    return isKingInCheck(whiteToMove);
+    return legal.empty();
 }
 
 bool Board::isWhiteToMove() const {
@@ -304,7 +302,7 @@ bool Board::isKingInCheck(bool white) const {
 
 std::string Board::getGameState() const {
     std::vector<Move> legal = getAllLegalMoves(whiteToMove);
-    if((isKingInCheck(whiteToMove) && !legal.empty()) || !legal.empty()) return "Game is on";
+    if(!legal.empty()) return "Game is on";
     else if(isKingInCheck(whiteToMove) && legal.empty()) return whiteToMove ? "Black wins!" : "White wins!";
     return "Draw";
 }
