@@ -49,7 +49,6 @@ Move findBestMove(Board board, int depth) {
     
     Move bestMove = moves[0];
     int bestScore = board.isWhiteToMove() ? -100000 : 100000;
-
     for(const Move& move : moves) {
         Board newBoard = board;
         newBoard.makeMove(move);

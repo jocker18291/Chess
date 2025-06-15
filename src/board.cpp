@@ -163,30 +163,24 @@ bool Board::makeMove(const std::string& move) {
     if(validMove) {
 
         char captured = board[toY][toX];
+
         if(tolower(piece) == 'p' && (toY ==0 || toY == 7)) {
             board[toY][toX] = isWhitePiece ? 'Q' : 'q';
         } else {
             board[toY][toX] = board[fromY][fromX];
         }
-        
         board[fromY][fromX] = '.';
 
         bool leavesKingInCheck = isKingInCheck(isWhitePiece);
 
-        board[fromY][fromX] = piece;
-        board[toY][toX] = captured;
-
         if(leavesKingInCheck) {
+            board[fromY][fromX] = piece;
+            board[toY][toX] = captured;
             return false;
         }
 
-        if(tolower(piece) == 'p' && (toY ==0 || toY == 7)) {
-            board[toY][toX] = isWhitePiece ? 'Q' : 'q';
-        } else {
-            board[toY][toX] = board[fromY][fromX];
-        }
-        board[fromY][fromX] = '.';
         whiteToMove = !whiteToMove;
+        
         return true;
         
     }
@@ -195,7 +189,7 @@ bool Board::makeMove(const std::string& move) {
 }
 
 bool Board::isGameOver() const {
-    std::vector<Move> legal = getAllLegalMoves(whiteToMove);
+    std::vector<Move> legal = getAllLegalMoves(isWhiteToMove());
     return legal.empty();
 }
 

@@ -77,10 +77,6 @@ int main() {
                             aiMoveStr += ('8' - aiMove.toY);
                             board.makeMove(aiMove);
                             std::cout << "AI Move: " << aiMoveStr << std::endl;
-                            if(board.isGameOver()) {
-                                gameOver = true;
-                                resultText.setString(board.getGameState());
-                            }
                         }
                     }
 
